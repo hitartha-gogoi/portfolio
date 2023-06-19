@@ -1,0 +1,36 @@
+{
+  "name": "my-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@heroicons/react": "^1.0.6",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.12.3",
+    "@react-spring/web": "^9.7.2",
+    "autoprefixer": "10.4.14",
+    "firebase": "^9.21.0",
+    "millify": "^6.1.0",
+    "next": "13.3.4",
+    "next-pwa": "^5.6.0",
+    "postcss": "8.4.23",
+    "react": "18.2.0",
+    "react-countdown": "^2.3.5",
+    "react-countup": "^6.4.2",
+    "react-dom": "18.2.0",
+    "react-font": "^1.2.1",
+    "react-icons": "^4.9.0",
+    "react-reveal": "^1.2.2",
+    "react-syntax-highlighter": "^15.5.0",
+    "react-tinder-card": "^1.6.2",
+    "react-typing-effect": "^2.0.5",
+    "tailwindcss": "3.3.2"
+  }
+}
