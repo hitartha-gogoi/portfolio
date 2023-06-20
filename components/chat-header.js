@@ -7,14 +7,19 @@ import { UserIcon } from "@heroicons/react/solid"
 import { Avatar } from "@mui/material"
 import ChatIcon from "@mui/icons-material/Chat"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
+import ChatProfile from "./chat-profile"
 
 export default function Header(){
   
-  const [ isProfileOpen, setProfileOpen ] = useState(false)
+  const [ open, setOpen ] = useState(false)
   
   return(
     <>
-    <div className="flex flex-row justify-between items-center flex-wrap h-14 w-screen sticky top-0 left-0 z-[1600] border-bottom border border-gray-400 shadow-2xl shadow-gray-200">
+    {/*
+   <ChatProfile open={open} close={()=> setOpen(false)} />
+   */}
+   
+   <div className="flex flex-row justify-between items-center flex-wrap h-14 w-screen sticky top-0 left-0 z-[1600] border-bottom border border-gray-400">
     
     <div className="flex">
     <Link href="/">
@@ -27,7 +32,7 @@ export default function Header(){
     <div className="flex flex-row justify-evenly items-center w-40 bg-white mr-2 rounded-lg h-10">
     <ChatIcon className="h-8 w-8 rounded-full mx-2 text-gray-500" />
     <MoreVertIcon className="h-8 w-8 rounded-full mx-2 text-gray-500"  />
-    <Avatar className="h-8 w-8 rounded-full mx-2" />
+    <Avatar onClick={()=> setOpen(true)} className="h-8 w-8 rounded-full mx-2" />
     </div>
     
     </div>

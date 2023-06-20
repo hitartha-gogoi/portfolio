@@ -1,6 +1,7 @@
 import React , { useState, useEffect, useRef } from "react"
 import router from "next/router"
 import Link from "next/link"
+import Typography  from "@mui/material/Typography"
 import { useRouter } from "next/router"
 import { Avatar } from "@mui/material"
 import ChatIcon from "@mui/icons-material/Chat"
@@ -8,19 +9,18 @@ import MoreVertIcon from "@mui/icons-material/MoreVert"
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon"
 import SendIcon from "@mui/icons-material/Send"
 import { auth } from "../components/firebase"
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import Typography  from "@mui/material/Typography"
+import { onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth";
 import { collection, getDoc, getDocs, doc, documentId, where, query, updateDoc, setDoc, deleteDoc, addDoc, arrayUnion, arrayRemove, serverTimestamp } from "firebase/firestore"
 
-export default function ChatLogin(){
+export default function ChatSignup(){
   
   const [ username, setUsername ] = useState("")
   const [ email, setEmail ] = useState("")
   const [ password, setPassword ] = useState("")
   
-  const login = (e)=>{
+  const signup = (e)=>{
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
       router.push("/chat")
@@ -44,15 +44,15 @@ export default function ChatLogin(){
     </div>
     
     
-    <form onSubmit={login} className="flex flex-col justify-evenly items-center sticky bg-white h-2/5 w-3/5 border-left border-2 border-gray-200 rounded-xl pb-[25px]">
+    <form onSubmit={signup} className="flex flex-col justify-evenly items-center sticky bg-white h-2/5 w-3/5 border-left border-2 border-gray-200 rounded-xl pb-[25px]">
    
     <input value={username} onChange={(e)=> setUsername(e.target.value)} placeholder="Username" className="mt-2 w-4/5  bg-gray-100 focus:border-black border-transparent rounded-md h-8" />
     <input value={email} onChange={(e)=> setEmail(e.target.value)} placeholder="Email" type="email" className="mt-2 w-4/5  bg-gray-100 focus:border-black border-transparent rounded-md h-8" />
     <input value={password} onChange={(e)=> setPassword(e.target.value)} placeholder="password" type="password" className="mt-2 w-4/5  bg-gray-100 focus:border-black border-transparent rounded-md h-8" />
-    <Typography onClick={login} variant="h6" component="h2" color="gray"> LOGIN</Typography>
+    <Typography onClick={signup} variant="h6" component="h2" color="gray"> SIGNUP </Typography>
     </form>
-    <Link href="/chat-signup">
-    <Typography variant="h6" component="h2" color="gray"> NEW ? CREATE AN ACCOUNT</Typography>
+    <Link href="/chat-login">
+    <Typography variant="h6" component="h2" color="gray"> HAVE AN ACCOUNT ? SIGN IN</Typography>
     </Link>
     
     </div>

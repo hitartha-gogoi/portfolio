@@ -5,7 +5,7 @@ import { getDocs, collection, query, where, doc, setDoc } from "firebase/firesto
 import router from "next/router"
 import { XIcon } from "@heroicons/react/outline"
 
-export default function CheckAuthPopup({ open, close }){
+export default function ChatProfile({ open, close }){
   
   if(open) return;
   
@@ -32,7 +32,7 @@ export default function CheckAuthPopup({ open, close }){
   }
   
   return(
-     <div className=" fixed top-0 left-0 right-0 bottom-0 backdrop-brightness-50 z-50 flex justify-center items-center">
+     <div className="fixed top-0 left-0 right-0 bottom-0 backdrop-brightness-50 z-50 flex justify-center items-center">
   <div className="z-10 flex flex-col justify-start items-center bg-white w-72 h-96 rounded-md">
       <button className="flex  flex-row justify-center items-center text-white text-center font-bold bg-black h-10 w-60 mt-2 rounded-lg border-gray-700 border hover:scale-105 transition-all ease-in-out duration-150" onClick={googleAuth}>
       <span className="material-symbols-outlined">logout</span> Sign In using Google </button>

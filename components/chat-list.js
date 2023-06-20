@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import Link from "next/link"
+import router from "next/router"
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { Typography } from '@mui/material';
 import { Avatar } from "@mui/material"
@@ -10,7 +11,7 @@ export default function ChatList(){
   const [ chats, setChats ] = useState([1,2,3,4,5,6,7])
   
   return(
-    <div className="flex fixed flex-col w-96 h-screen border-right border-2 border-gray-300 bg-white pb-16">
+    <div className=" flex fixed flex-col w-96 h-screen border-right border-2 border-gray-300 bg-white pb-16">
     
     {/* search input */}
     <div className="flex flex-row w-96 justify-center items-center  border-gray-200 border-bottom border-2 h-16 ">
@@ -24,7 +25,7 @@ export default function ChatList(){
     {/* a particular chat */}
     {chats.map((messages)=>{
     return(
-    <div className="flex justify-between items-center cursor-pointer p-[15px] break-normal border border-bottom border-gray-100 hover:bg-[#e9eaeb]">
+    <div onClick={()=> router.push('/chat/id')} className="flex justify-between items-center cursor-pointer p-[15px] break-normal border border-bottom border-gray-100 hover:bg-[#e9eaeb]">
     
     {/* Avatar, username and new message of the chat list */}
     <div className="flex">

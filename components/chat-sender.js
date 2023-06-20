@@ -11,7 +11,7 @@ import { Avatar } from "@mui/material"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
 import Link from "next/link"
 
-export default function Sender(){
+export default function ChatSender(){
   
   const [ reply, setReply ] = useState("")
   const [ messages, setMessages ] = useState([1,2,3,4,5,6,7])
@@ -22,7 +22,7 @@ export default function Sender(){
   }
   
   return(
-    <div className="flex flex-col w-screen h-full bg-[#e5ded8] ml-96 md:w-3/5 lg:w-3/5 fixed">
+    <div className="flex flex-col w-screen h-full bg-[#e5ded8] ml-0 md:ml-96 lg:ml-96 md:w-3/5 lg:w-3/5 fixed">
     
     {/* profile */}
     <div className="flex justify-evenly items-center sticky bg-white h-14 border-left border-2 border-gray-200">
