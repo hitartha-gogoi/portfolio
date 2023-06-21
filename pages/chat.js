@@ -21,6 +21,7 @@ export default function Chat(){
    onAuthStateChanged(auth, (client) => {
       if (client) {
       console.log(client)
+      
       } else {
         router.push("/chat-login")
       }

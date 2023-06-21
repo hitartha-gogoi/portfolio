@@ -9,7 +9,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert"
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon"
 import SendIcon from "@mui/icons-material/Send"
 import { auth } from "../components/firebase"
-import { onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth";
+import { onAuthStateChanged, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { collection, getDoc, getDocs, doc, documentId, where, query, updateDoc, setDoc, deleteDoc, addDoc, arrayUnion, arrayRemove, serverTimestamp } from "firebase/firestore"
 
 export default function ChatSignup(){
@@ -23,7 +23,39 @@ export default function ChatSignup(){
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
+      fetch(`/api/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: username,
+          email: email,
+          password: password,
+          id: user.uid
+        })
+      })
+      .then(res =>{
+        return res.json();
+      })
+      .then(result =>{
+        console.log(result)
+        updateProfile(auth.currentUser, {
+          displayName: username
+        }).then(() => {
+          //
+        }).catch((error) => {
+          console.log(error)
+        });
+      })
+      .catch(err =>{
+        console.log(err)
+      })
+
+      
+      
       router.push("/chat")
+      
     })
     .catch((error) => {
       const errorCode = error.code;

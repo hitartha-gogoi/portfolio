@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import router from "next/router"
 import { useRouter } from "next/router"
 import Image from 'next/image'
@@ -10,15 +10,71 @@ import SendIcon from "@mui/icons-material/Send"
 import { Avatar } from "@mui/material"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
 import Link from "next/link"
+import { auth, db } from "../components/firebase"
+import { onAuthStateChanged } from "firebase/auth"
+import { getDocs, collection, query, where, doc, setDoc, serverTimestamp, updateDoc, addDoc, orderBy, documentId, onSnapshot } from "firebase/firestore"
 
 export default function ChatSender(){
   
   const [ reply, setReply ] = useState("")
-  const [ messages, setMessages ] = useState([1,2,3,4,5,6,7])
+  const [ chatName, setChatName ] = useState("")
+  const [ messages, setMessages ] = useState([])
+  const route = useRouter()
+  const { id } = route.query
   
-  const sendMessage = (e)=>{
-    e.preventDefault();
-    setReply("")
+  const getMessages = ()=>{
+      setMessages([])
+      let q = query(collection(db, "messages"), where("chatId","==", id), orderBy("timestamp", "asc"))
+       onSnapshot(q, (messagesSnapshot)=>{
+       setMessages(messagesSnapshot.docs.map(docu => ({ id: docu.id, data: docu.data() })))
+      })
+     console.log(messages)
+    }
+    
+    const getChatRoom =()=>{
+      setChatName("")
+      let q = query(collection(db, "chats"), where(documentId(),"==", id))
+      onSnapshot(q, (chatSnapshot)=>{
+         chatSnapshot.forEach((chatMessage)=>{
+         setChatName(chatMessage.data().name)
+         console.log(chatMessage.data().name)
+        })
+      })
+    }
+  
+  useEffect(()=>{
+    setChatName("")
+    setMessages([])
+    if(!route.isReady) return;
+   return getMessages();
+  }, [id])
+  
+  useEffect(()=>{
+    setChatName("")
+    setMessages([])
+    if(!route.isReady) return;
+    return ()=> getChatRoom();
+  }, [id])
+  
+  const sendMessage = async(e)=>{
+    e.preventDefault()
+    try{
+      await addDoc(collection(db, 'messages'), {
+        message: reply,
+        chatId: id,
+        sender: auth.currentUser.uid,
+        timestamp: serverTimestamp()
+      })
+      await updateDoc(doc(db, "chats", id), {
+        lastMessage: reply,
+        timestamp: serverTimestamp(),
+      })
+      
+      setReply("")
+    }catch(e){
+      setReply("")
+      console.log(e)
+    }
   }
   
   return(
@@ -29,21 +85,23 @@ export default function ChatSender(){
     <div className="flex w-4/5">
     <Avatar />
     <div className="ml-6">
-    <p className="font-bold text-xl">Username </p>
-    <p className="text-gray-500 text-md">Hi</p>
+    <p className="font-bold text-xl">{chatName} </p>
+    <p className="text-gray-500 text-md"></p>
     </div>
     </div>
-    <MoreVertIcon />
+    <MoreVertIcon onClick={getMessages} />
     </div>
     
     {/* messages */}
     <div className="flex flex-col w-full h-3/5 overflow-y-scroll">
-    {messages.map((message)=>{
+    {messages.map((chats)=>{
     return(
     <>
-    <p className="p-[15px] rounded-lg m-[10px] pb-[26px] relative text-right bg-[#dcf8c6] w-auto ml-auto">Hi</p>
-    
-    <p className="p-[15px] rounded-lg m-[10px] pb-[26px] relative text-left bg-[whitesmoke] mr-auto w-auto">Hello</p>
+    {chats.data.sender == auth.currentUser.uid ?
+    <p className="p-[15px] rounded-lg m-[10px] pb-[26px] relative text-right bg-[#dcf8c6] w-auto ml-auto">{chats.data.message}</p>
+    :
+    <p className="p-[15px] rounded-lg m-[10px] pb-[26px] relative text-left bg-[whitesmoke] mr-auto w-auto">{chats.data.message}</p>
+    }
     </>
     )
     })}

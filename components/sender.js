@@ -14,7 +14,7 @@ import Link from "next/link"
 export default function Sender(){
   
   const [ reply, setReply ] = useState("")
-  const [ messages, setMessages ] = useState([1,2,3,4,5,6,7])
+  const [ messages, setMessages ] = useState([])
   
   const sendMessage = (e)=>{
     e.preventDefault();
@@ -25,15 +25,7 @@ export default function Sender(){
     <div className="flex flex-col w-screen h-full bg-[#e5ded8] ml-96 md:w-3/5 lg:w-3/5 fixed">
     
     {/* profile */}
-    <div className="flex justify-evenly items-center sticky bg-white h-14 border-left border-2 border-gray-200">
-    <div className="flex w-4/5">
-    <Avatar />
-    <div className="ml-6">
-    <p className="font-bold text-xl">Username </p>
-    <p className="text-gray-500 text-md">Hi</p>
-    </div>
-    </div>
-    <MoreVertIcon />
+    <div className="flex justify-evenly items-center sticky bg-[#e5ded8] h-14">
     </div>
     
     {/* messages */}

@@ -23,7 +23,9 @@ export default function ChatLogin(){
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
+      console.log(user)
       router.push("/chat")
+      alert("done")
     })
     .catch((error) => {
       const errorCode = error.code;
