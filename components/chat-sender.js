@@ -41,6 +41,10 @@ export default function ChatSender(){
         })
       })
     }
+    
+  useEffect(() => {
+    document.querySelector('#ui-chat').scrollTop = document.querySelector('#ui-chat').scrollHeight
+  }, [messages])
   
   useEffect(()=>{
     setChatName("")
@@ -58,6 +62,7 @@ export default function ChatSender(){
   
   const sendMessage = async(e)=>{
     e.preventDefault()
+    setReply("")
     try{
       await addDoc(collection(db, 'messages'), {
         message: reply,
@@ -69,10 +74,7 @@ export default function ChatSender(){
         lastMessage: reply,
         timestamp: serverTimestamp(),
       })
-      
-      setReply("")
     }catch(e){
-      setReply("")
       console.log(e)
     }
   }
@@ -93,7 +95,7 @@ export default function ChatSender(){
     </div>
     
     {/* messages */}
-    <div className="flex flex-col w-full h-3/5 overflow-y-scroll">
+    <div id="ui-chat" className="flex flex-col w-full h-3/5 overflow-y-scroll">
     {messages.map((chats)=>{
     return(
     <>
