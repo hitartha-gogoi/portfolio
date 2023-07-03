@@ -15,11 +15,12 @@ export default function Footer(){
     
     <div className="flex flex-row justify-center items-center flex-wrap space-x-4 my-8">
     <Link href="https://www.instagram.com/_.catalyst__/">
-    <InstagramIcon /></Link>
-    <TwitterIcon />
-    <Link href="https://discord.gg/rZKX6au97V"><FaDiscord /></Link>
-    <BsMedium />
-    <img src="https://www.metartworks.com/assets/img/opensea.png" className="inline h-4 w-4" />
+    <InstagramIcon className="hover:scale-125 transition-all duration-150 ease-out" /></Link>
+    <TwitterIcon className="hover:scale-125 transition-all duration-150 ease-out" />
+    <Link href="https://discord.gg/rZKX6au97V">
+    <FaDiscord className="hover:scale-150 transition-all duration-150 ease-out" />
+    </Link>
+    <BsMedium className="hover:scale-150 transition-all duration-150 ease-out" />
     </div>
     <span className="font-light text-gray-400">© all copyrights reserved, 2022</span>
     </div>

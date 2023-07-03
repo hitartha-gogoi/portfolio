@@ -20,8 +20,8 @@ export default function Home() {
     <div className="flex flex-col sm:flex-row">
     <About />
     <Form />
-    <Footer />
     </div>
+    <Footer />
     </main>
     </>
   )

@@ -19,8 +19,8 @@ export default function Specs(){
     <div className="h-4" />
     <Roll left>
    
-    <img src="https://avatars.githubusercontent.com/u/72619384?v=4" className="lg:my-10 h-4/5 w-80  rounded-2xl shadow-2xl object-cover cursor-pointer hover:scale-110 transition-all duration-150 ease-out mx-10 my-6 shadow-blue-500" alt="image" />
-   
+    <img src="https://avatars.githubusercontent.com/u/72619384?v=4" className="lg:my-10 h-4/5 w-80  rounded-2xl shadow-2xl object-cover cursor-pointer hover:scale-110 transition-all duration-150 ease-out mx-10 my-6 shadow-blue-500 " alt="image" />
+ 
     </Roll>
     
     <span title="bannertitle" className="text-center font-extrabold text-4xl text-white"><Roll top cascade>Hitartha Gogoi</Roll></span>
@@ -36,22 +36,22 @@ export default function Specs(){
      <span className="text-2xl text-gray-400 font-bold">
      {/*
      <CountUp end={979} />*/}<br/> 
-     <AiFillInstagram className="h-16 w-16 text-white" /></span>
+     <AiFillInstagram className="h-16 w-16 text-white hover:scale-110 transition-all duration-150 ease-out " /></span>
      </Link>
      <Link href="https://twitter.com/arnabgogoi83">
      <span className="text-2xl text-gray-400 font-bold">
      {/*<CountUp end={4} />*/}
-     <br /><AiFillTwitterSquare className="h-16 w-16 text-white" /></span>
+     <br /><AiFillTwitterSquare className="h-16 w-16 text-white hover:scale-110 transition-all duration-150 ease-out" /></span>
      </Link>
      <Link href="https://www.linkedin.com/in/code-awesome-49720a209/">
      <span className="text-2xl text-gray-400 font-bold">
      {/*<CountUp end={500} />*/}
-     <br/><AiFillLinkedin className="h-16 w-16 text-white" /></span>
+     <br/><AiFillLinkedin className="h-16 w-16 text-white hover:scale-110 transition-all duration-150 ease-out " /></span>
      </Link>
      </div>
      </div>
      <Link href="https://github.com/JS-junior">
-     <button className="text-center h-12 w-44 my-4 bg-purple-700 text-white font-extrabold text-lg rounded-xl flex justify-center items-center shadow-2xl"> Github <AiFillGithub className="text-white h-8 w-8 mx-2" /></button>
+     <button className="text-center h-12 w-44 my-4 bg-purple-700 text-white font-extrabold text-lg rounded-xl flex justify-center items-center shadow-2xl hover:scale-110 transition-all duration-150 ease-out"> Github <AiFillGithub className="text-white h-8 w-8 mx-2" /></button>
     </Link>
      
     </div>

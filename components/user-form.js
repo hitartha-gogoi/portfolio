@@ -19,15 +19,7 @@ export default function UserForm({ open, close }){
   const [ users, setUsers ] = useState([])
   const [ username, setUsername ] = useState("")
   const [ members, setMembers ] = useState([])
-  
-  useEffect(()=>{
-    const unsubscribe = onAuthStateChanged(auth, (user)=>{
-      console.log(user)
-    })
-    
-    return unsubscribe;
-  },[])
-  
+ 
   const searchUser = ()=>{
     fetch(`/api/users?email=${username}`, {
         method: "GET",
