@@ -58,7 +58,7 @@ export default function Specs(){
      </Link>
      </div>
      </div>
-     <Link href="https://github.com/JS-junior">
+     <Link href="https://github.com/hitartha-gogoi">
      <button className="text-center h-12 w-44 my-4 bg-purple-700 text-white font-extrabold text-lg rounded-xl flex justify-center items-center shadow-2xl hover:scale-110 transition-all duration-150 ease-out"> Github <AiFillGithub className="text-white h-8 w-8 mx-2" /></button>
     </Link>
      
