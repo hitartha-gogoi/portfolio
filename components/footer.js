@@ -10,7 +10,7 @@ export default function Footer(){
   
   return(
     <div className="flex flex-col justify-center items-center h-72 w-screen bg-black space-y-2 text-white">
-    <span id="headertext" className="font-bold text-2xl my-2">Made with Next.JS</span> {/*
+    <span id="headertext" className="font-bold text-2xl my-2">Made with NEXT.JS</span> {/*
     <img src="https://avatars.githubusercontent.com/u/72619384?v=4" className="h-36 w-36 rounded-full my-8" /> */}
     
     <div className="flex flex-row justify-center items-center flex-wrap space-x-4 my-8">

@@ -1,14 +1,22 @@
 import React, { useState } from "react"
+import dynamic from "next/dynamic"
 import { AiTwotoneCheckCircle, AiFillInstagram, AiFillTwitterSquare,  AiFillLinkedin, AiFillGithub } from "react-icons/ai"
 
 import { CodeIcon, UserGroupIcon } from "@heroicons/react/solid"/*
 import CountUp from 'react-countup'*/
 import ReactTypingEffect from 'react-typing-effect';
-//import TinderCard from 'react-tinder-card';
 import Roll from 'react-reveal/Roll';
 import Link from "next/link"
 import millify from "millify";
 import { FaDiscord } from 'react-icons/fa';
+
+const DynamicView = dynamic(
+  ()=> {
+    return import("./dynamic-view")
+  }, {
+    ssr: false
+  }
+  )
 
 export default function Specs(){
   
@@ -18,12 +26,12 @@ export default function Specs(){
     <div className="flex flex-col">
     <div className="h-4" />
     <Roll left>
-   
-    <img src="https://avatars.githubusercontent.com/u/72619384?v=4" className="lg:my-10 h-4/5 w-80  rounded-2xl shadow-2xl object-cover cursor-pointer hover:scale-110 transition-all duration-150 ease-out mx-10 my-6 shadow-blue-500 " alt="image" />
- 
+    <DynamicView />
     </Roll>
     
-    <span title="bannertitle" className="text-center font-extrabold text-4xl text-white"><Roll top cascade>Hitartha Gogoi</Roll></span>
+    <span title="bannertitle" className="text-center font-extrabold text-4xl text-white"><Roll top cascade>Hitartha Gogoi</Roll>
+  
+    </span>
     
      </div>
      <div className="flex flex-col ml-6 justify-center items-center">

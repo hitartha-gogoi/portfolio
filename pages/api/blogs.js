@@ -26,12 +26,13 @@ export default function handler(req, res) {
   }
   if(req.method == "POST"){
     mongoose.connect(mongoAtlasUri)
-    let { name, description, photo } = req.body
+    let { name, description, photo, link } = req.body
     Blog.create({
       _id: new mongoose.Types.ObjectId(),
       name: name,
       description: description,
       photo: photo,
+      link: link,
       postedOn: new Date().toISOString()
     })
     .then(result => res.status(200).json({ message: result }))

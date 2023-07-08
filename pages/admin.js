@@ -1,16 +1,22 @@
 import React, { useState, useEffect, useLayoutEffect } from "react"
 import Nav from  "../components/nav"
 import Link from "next/link"
+import router from "next/router"
 import ReactTypingEffect from "react-typing-effect"
 import SendIcon from "@mui/icons-material/Send"
-import { Fab } from "@mui/material"
+import { Fab, Typography } from "@mui/material"
 import AddIcon from "@mui/icons-material/Add"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
+import RefreshIcon from "@mui/icons-material/Refresh"
+import SearchIcon from "@mui/icons-material/Search"
 import CloseIcon from "@mui/icons-material/Close"
+import ContentCopyIcon from "@mui/icons-material/ContentCopy"
 import { db, auth, storage } from "../components/firebase"
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage"
 import { collection, doc, addDoc, serverTimestamp } from "firebase/firestore"
+import ReactTimeAgo from 'react-time-ago'
+
 
 function CheckAuthPopup({ open, close }){
   
@@ -49,6 +55,7 @@ function EditModal({ open, close, id, title, desc, file, reload }){
   const [ name, setName ] = useState(title)
   const [ description, setDescription ] = useState(desc)
   const [ photo, setPhoto ] = useState({})
+  const [ link, setLink ] = useState("")
   
   if(!open) return;
   
@@ -92,7 +99,8 @@ function EditModal({ open, close, id, title, desc, file, reload }){
         id: id,
         name: name,
         description: description,
-        photo: downloadURL
+        photo: downloadURL,
+        link: link
       })
     })
     .then(res => res.json())
@@ -101,6 +109,7 @@ function EditModal({ open, close, id, title, desc, file, reload }){
       setName("")
       setDescription("")
       setPhoto({})
+      setLink("")
       close();
       })
     .catch(err => console.log(err))
@@ -110,17 +119,18 @@ function EditModal({ open, close, id, title, desc, file, reload }){
   
   return(
      <div className="bg-black fixed top-0 left-0 right-0 bottom-0 backdrop-blur bg-transparent z-50 flex justify-center items-center">
-  <form onSubmit={edit} className="z-10 flex flex-col justify-start items-center bg-[#0f0f0f] w-72 h-72 rounded-md shadow-xl inset-y-0 shadow-cyan-500">
+  <form onSubmit={edit} className="z-10 flex flex-col justify-start items-center bg-[#0f0f0f] w-72 h-80 rounded-md shadow-xl inset-y-0 shadow-cyan-500">
   <div className="flex w-full justify-between">
   <span />
   <CloseIcon className="text-white" onClick={close}/>
   </div>
   <h2 className="text-3xl font-extrabold text-white">Edit a Post</h2>
   <ReactTypingEffect id="headertext" className="text-white" staticText={[""]} speed={10} eraseSpeed={20} delay={10} text={["Make changes....."]} />
-      <div className="flex  flex-col justify-center items-center text-black text-center font-bold bg-white h-48 w-60 mt-2 rounded-lg"> 
+      <div className="flex  flex-col justify-center items-center text-black text-center font-bold bg-white h-56 w-60 mt-2 rounded-lg"> 
        <input type="file" onChange={loadFile} className="mt-2 w-4/5  bg-gray-100 rounded-md h-8" /> 
        <input value={name} onChange={(e)=> setName(e.target.value)} placeholder="name" className="mt-2 w-4/5  bg-gray-100 rounded-md h-8" />
        <input value={description} onChange={(e)=> setDescription(e.target.value)} placeholder="type something...." className="mt-2 w-4/5  bg-gray-100 rounded-md h-8" />
+       <input value={link} onChange={(e)=> setLink(e.target.value)} placeholder="link" className="mt-2 w-4/5  bg-gray-100 rounded-md h-8" /> 
        <button className="font-bold bg-white rounded-lg border-gray-700 hover:scale-105 transition-all ease-in-out duration-150">
     <SendIcon className="text-center text-white font-bold bg-black h-22 w-52 mt-4  rounded-lg hover:scale-105 transition-all ease-in-out duration-150" />
     </button>
@@ -136,6 +146,7 @@ function CreateModal({ open, close }){
   const [ name, setName ] = useState("")
   const [ description, setDescription ] = useState("")
   const [ photo, setPhoto ] = useState({})
+  const [ link, setLink ] = useState("")
   
   let loadFile = function(event) {
 		let reader = new FileReader();
@@ -178,7 +189,8 @@ function CreateModal({ open, close }){
       body: JSON.stringify({
         name: name,
         description: description,
-        photo: downloadURL
+        photo: downloadURL,
+        link: link
       })
     })
     .then(res => res.json())
@@ -186,6 +198,7 @@ function CreateModal({ open, close }){
       console.log(result)
       setName("")
       setDescription("")
+      setLink("")
       setPhoto({})
       close()
     })
@@ -196,16 +209,18 @@ function CreateModal({ open, close }){
  
   return(
      <div className="bg-black fixed top-0 left-0 right-0 bottom-0 backdrop-blur bg-transparent z-50 flex justify-center items-center">
-  <form onSubmit={create} className="z-10 flex flex-col justify-start items-center bg-[#0f0f0f] w-72 h-72 rounded-md shadow-xl inset-y-0 shadow-cyan-500">
+  <form onSubmit={create} className="z-10 flex flex-col justify-start items-center bg-[#0f0f0f] w-72 h-80 rounded-md shadow-xl inset-y-0 shadow-cyan-500">
   <div className="flex w-full justify-between">
   <span />
   <CloseIcon className="text-white" onClick={close}/>
   </div>
   <h2 className="text-3xl font-extrabold text-white">Add a Blog Post</h2>
-  <ReactTypingEffect id="headertext" className="text-white" staticText={[""]} speed={10} eraseSpeed={20} delay={10} text={["create a new blog post"]} /><div className="flex  flex-col justify-center items-center text-black text-center font-bold bg-white h-48 w-60 mt-2 rounded-lg">
+  <ReactTypingEffect id="headertext" className="text-white" staticText={[""]} speed={10} eraseSpeed={20} delay={10} text={["create a new blog post"]} />
+  <div className="flex flex-col justify-center items-center text-black text-center font-bold bg-white h-56 w-60 mt-2 rounded-lg">
        <input type="file" onChange={loadFile} className="mt-2 w-4/5  bg-gray-100 rounded-md h-8" /> 
        <input value={name} onChange={(e)=> setName(e.target.value)} placeholder="name" className="mt-2 w-4/5  bg-gray-100 rounded-md h-8" /> 
        <input value={description} onChange={(e)=> setDescription(e.target.value)} placeholder="type something...." className="mt-2 w-4/5  bg-gray-100 rounded-md h-8" />
+       <input value={link} onChange={(e)=> setLink(e.target.value)} placeholder="link" className="mt-2 w-4/5  bg-gray-100 rounded-md h-8" /> 
        <button type="submit" className="font-bold bg-white rounded-lg border-gray-700 hover:scale-105 transition-all ease-in-out duration-150">
       
     <SendIcon className="text-center text-white font-bold bg-black h-22 w-52 mt-4  rounded-lg hover:scale-105 transition-all ease-in-out duration-150" onClick={create} />
@@ -228,6 +243,7 @@ export default function Admin(){
   const [ name, setName ] = useState("")
   const [ description, setDescription ] = useState("")
   const [ photo, setPhoto ] = useState({})
+  const [ link, setLink ] = useState("")
   
   const getBlogs = ()=>{
     setBlogs([])
@@ -244,6 +260,7 @@ export default function Admin(){
   }, [])
   
   const openEditModal = (id, name, description, photo)=>{
+    
     setEditId(id)
     setName(name)
     setDescription(description)
@@ -269,7 +286,7 @@ export default function Admin(){
     <CheckAuthPopup open={isLoggedIn} close={()=> setLoggedIn(true)} />
     <EditModal open={isEditOpen} id={editId} reload={()=> getBlogs()} title={name} desc={description} file={photo} close={()=> setEditOpen(false)} />
     <CreateModal open={isAddOpen} close={()=> setAddOpen(false)} />
-    <div className="flex flex-row flex-wrap justify-evenly items-center group cursor-pointer w-screen bg-[#0f0f0f]">
+    <div className="flex flex-col w-72 flex-wrap justify-evenly items-center group cursor-pointer w-screen bg-[#0f0f0f]">
     {blogs.map((blog, index)=>{
     return(
     <div style={{ backgroundImage: `url(${blog.photo})` }} className={`w-80 h-80 m-4 relative drop-shadow-xl hover:scale-105 transition-transform duration-200  object-contain rounded-lg`}>
@@ -278,8 +295,11 @@ export default function Admin(){
     <p id="heavyfont" className="font-extrabold text-sm uppercase">{blog.name}
     <p id="generalfont" className="font-semibold text-sm">{blog.description} </p>
     </p>
-    <div  className="flex flex-col h-full">
-    <span id="footertext" className="font-semibold text-cyan-400"> 12:19 </span>
+    <div  className="flex flex-col h-full justify-between">
+    <span id="footertext" className="font-semibold text-cyan-400">
+   
+    </span>
+    <ContentCopyIcon className="hover:scale-125 transition-all duration-150 ease-out" onClick={()=> navigator.clipboard.writeText(blog.link)} />
     <EditIcon onClick={()=> openEditModal(blog._id, blog.name, blog.description, blog.photo )} className="hover:scale-125 transition-all duration-150 ease-out" />
     <DeleteIcon onClick={()=> deleteBlog(blog._id)} className="hover:scale-125 transition-all duration-150 ease-out" />
     </div>
@@ -287,8 +307,16 @@ export default function Admin(){
     </div>
     )
     })}
-    <Fab color="primary" aria-label="add">
-    <AddIcon onClick={()=> setAddOpen(true)} />
+    
+    </div>
+    
+    <div className="fixed left-0 flex flex-col bg-slate-900 shadow-2xl shadow-black justify-start h-screen w-16 inset-y-14">
+    <Fab color="primary" aria-label="add" className="shadow-2xl hover:shadow-cyan-500 hover:bg-black" onClick={()=> setAddOpen(true)}>
+    <AddIcon className="text-cyan-400" />
+    <Typography variant="h6" component="h2" color="gray">  </Typography>
+    </Fab>
+    <Fab color="primary" aria-label="add" className="shadow-2xl hover:shadow-cyan-500 hover:bg-black">
+    <RefreshIcon onClick={getBlogs} className="text-cyan-400" />
     </Fab>
     </div>
    </>

@@ -16,6 +16,7 @@ export default function Home() {
     <Nav />
      <main className="flex flex-col justify-center items-center my-10">
     <Specs />
+    <SkillsMeter />
     <Cards />
     <div className="flex flex-col sm:flex-row">
     <About />

@@ -1,11 +1,26 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Nav from  "../components/nav"
 import Link from "next/link"
+import router from "next/router"
 import ReactTypingEffect from "react-typing-effect"
+import ReactTimeAgo from 'react-time-ago'
 
 export default function Blogs(){
   
-  const [ blogs, setBlogs ] = useState([1,2,3])
+  const [ blogs, setBlogs ] = useState([])
+  const getBlogs = ()=>{
+    setBlogs([])
+    fetch(`/api/blogs`)
+    .then(res => res.json())
+    .then(result =>{
+      setBlogs(result.message)
+    })
+    .catch(err => console.log(err))
+  }
+  
+  useEffect(()=>{
+    return getBlogs()
+  }, [])
   
   return(
     <>
@@ -24,15 +39,15 @@ export default function Blogs(){
     
     
     <div className="flex flex-row flex-wrap justify-evenly items-center group cursor-pointer w-screen bg-[#0f0f0f]">
-    {blogs.map((item, index)=>{
+    {blogs.map((blog, index)=>{
     return(
-    <div className="w-80 h-80 m-4 relative drop-shadow-xl hover:scale-105 transition-transform duration-200 ease-out bg-[url('https://avatars.githubusercontent.com/u/72619384?v=4')] object-contain rounded-lg">
+    <div onClick={()=> router.push(blog.link)} style={{ backgroundImage: `url(${blog.photo})` }} className="w-80 h-80 m-4 relative drop-shadow-xl hover:scale-105 transition-transform duration-200 ease-out object-contain rounded-lg">
    
     <div className="absolute bottom-0 w-full bg-opacity-20 bg-black backdrop-blur rounded drop-shadow-lg text-white p-5 flex justify-between">
-    <p id="heavyfont" className="font-extrabold text-sm">CREATE AN APP USING REACT
-    <p id="generalfont" className="font-semibold text-sm">Hello there just became alert to your diamonds to call me at school then </p>
+    <p id="heavyfont" className="font-extrabold text-sm">{blog.name}
+    <p id="generalfont" className="font-semibold text-sm">{blog.description}</p>
     </p>
-    <p id="footertext" className="font-semibold text-cyan-400">12:19</p>
+    <p id="footertext" className="font-semibold text-cyan-400"> <ReactTimeAgo date={blog.postedOn} locale="en-US"/></p>
     </div>
     </div>
     )
