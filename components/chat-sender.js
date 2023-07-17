@@ -13,14 +13,17 @@ import Link from "next/link"
 import { auth, db } from "../components/firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import { getDocs, collection, query, where, doc, setDoc, serverTimestamp, updateDoc, addDoc, orderBy, documentId, onSnapshot } from "firebase/firestore"
+import ViewUsers from "./view-users"
 
-export default function ChatSender(){
+export default function ChatSender({ id }){
   
   const [ reply, setReply ] = useState("")
   const [ chatName, setChatName ] = useState("")
   const [ messages, setMessages ] = useState([])
+  const [ usersView, showView ] = useState(false)
+  const [ addView, showAddView ] = useState(false)
   const route = useRouter()
-  const { id } = route.query
+ 
   
   const getMessages = ()=>{
       setMessages([])
@@ -28,7 +31,9 @@ export default function ChatSender(){
        onSnapshot(q, (messagesSnapshot)=>{
        setMessages(messagesSnapshot.docs.map(docu => ({ id: docu.id, data: docu.data() })))
       })
-     console.log(messages)
+      
+      getChatRoom()
+  //   console.log(messages)
     }
     
     const getChatRoom =()=>{
@@ -38,6 +43,7 @@ export default function ChatSender(){
          chatSnapshot.forEach((chatMessage)=>{
          setChatName(chatMessage.data().name)
          console.log(chatMessage.data().name)
+         
         })
       })
     }
@@ -51,13 +57,6 @@ export default function ChatSender(){
     setMessages([])
     if(!route.isReady) return;
    return getMessages();
-  }, [id])
-  
-  useEffect(()=>{
-    setChatName("")
-    setMessages([])
-    if(!route.isReady) return;
-    return ()=> getChatRoom();
   }, [id])
   
   const sendMessage = async(e)=>{
@@ -81,7 +80,7 @@ export default function ChatSender(){
   
   return(
     <div className="flex flex-col w-screen h-full bg-[#e5ded8] ml-0 md:ml-96 lg:ml-96 md:w-3/5 lg:w-3/5 fixed">
-    
+    {usersView && <ViewUsers open={usersView} onClose={()=> showView(false)} />}
     {/* profile */}
     <div className="flex justify-evenly items-center sticky bg-white h-14 border-left border-2 border-gray-200">
     <div className="flex w-4/5">
@@ -91,7 +90,7 @@ export default function ChatSender(){
     <p className="text-gray-500 text-md"></p>
     </div>
     </div>
-    <MoreVertIcon onClick={getMessages} />
+    <MoreVertIcon onClick={()=> showView(true)} />
     </div>
     
     {/* messages */}

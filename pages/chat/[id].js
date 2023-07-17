@@ -39,8 +39,8 @@ export default function Chat(){
     <Header />
     <div className="flex flex-row flex-wrap justify-between items-center h-full w-full">
    
-    <ChatList />
-    <ChatSender />
+    <ChatList id={id} />
+    <ChatSender id={id} />
     </div>
     </div>
     )
