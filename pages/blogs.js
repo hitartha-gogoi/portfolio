@@ -27,22 +27,23 @@ export default function Blogs(){
     <Nav />
     <div className="flex flex-col lg:flex-row justify-between lg:space-x-5 font-bold px-10 py-5 mb-10 bg-black">
     <div>
-    <ReactTypingEffect className="text-7xl text-white" staticText={[""]} speed={10} eraseSpeed={20} delay={10} text={["Sonny's Daily Blog"]} />
-    <h2 id="headertext" className="text-white drop-shadow-xl shadow-cyan-400">Info at your fingertips</h2>
+    <ReactTypingEffect className="text-7xl text-white" staticText={[""]} speed={10} eraseSpeed={20} delay={10} text={["Science and Tech","Weekly Blogs"]} />
+    <h2 id="headertext" className="text-white drop-shadow-xl shadow-cyan-400">Subscribe to the weekly newsletter </h2>
     
     </div>
     <p  className="mt-5 md:mt-2 text-gray-400 max-w-sm">
-    New Product Features || Latest in Technology || Weekly newsletter
+    Science and Tech || More on A.I || Weekly newsletter
     </p>
     
     </div>
     
     
     <div className="flex flex-row flex-wrap justify-evenly items-center group cursor-pointer w-screen bg-[#0f0f0f]">
+        {blogs.length === 0 ? <span className="text-white">No Blogs found!</span> : <span />}
     {blogs.map((blog, index)=>{
     return(
     <div onClick={()=> router.push(blog.link)} style={{ backgroundImage: `url(${blog.photo})` }} className="w-80 h-80 m-4 relative drop-shadow-xl hover:scale-105 transition-transform duration-200 ease-out object-contain rounded-lg">
-   
+
     <div className="absolute bottom-0 w-full bg-opacity-20 bg-black backdrop-blur rounded drop-shadow-lg text-white p-5 flex justify-between">
     <p id="heavyfont" className="font-extrabold text-sm">{blog.name}
     <p id="generalfont" className="font-semibold text-sm">{blog.description}</p>

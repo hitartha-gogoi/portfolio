@@ -37,7 +37,7 @@ export default function Specs(){
      <div className="flex flex-col ml-6 justify-center items-center">
      <div className="text-center text-5xl font-extrabold leading-none tracking-tight my-6"> 
      <ReactTypingEffect staticText={["Hi, I'm a "]} speed={10} eraseSpeed={20} delay={10} className="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500" text={["Programmer", "Tech enthusiast", "Full stack developer"]} /></div>
-     <p className="text-left text-sm px-4 w-80 my-2 text-white"><ReactTypingEffect id="roboticfont" speed={10} eraseSpeed={20} text={["Hello folks! I'm Hitartha Gogoi, curreny studying in 9th standard, started to learn in 2020, after then I never stopped."]} /></p>
+     <p className="text-left text-sm px-4 w-80 my-2 text-white"><ReactTypingEffect id="roboticfont" speed={10} eraseSpeed={20} text={["Hello folks! I'm Hitartha Gogoi, currently studying in 10th standard, started learning coding in 2021, after then I never stopped."]} /></p>
      <div>
      <div className="flex flex-row justify-evenly items-center space-x-6 my-2 text-center">
      <Link href="https://www.instagram.com/gm.eth_/">
