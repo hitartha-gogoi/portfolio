@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Head from "next/head"
 import { Inter } from 'next/font/google'
 import Nav from "../components/nav"
 import Specs from "../components/desc"
@@ -14,6 +15,10 @@ export default function Home() {
   return (
     <>
     <Nav />
+    <Head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1031665074776630"
+     crossorigin="anonymous"></script>
+    </Head>
     <main className="flex flex-col justify-center items-center my-10">
     <Specs />
     <SkillsMeter />
