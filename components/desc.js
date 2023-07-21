@@ -40,7 +40,7 @@ export default function Specs(){
      <p className="text-left text-sm px-4 w-80 my-2 text-white"><ReactTypingEffect id="roboticfont" speed={10} eraseSpeed={20} text={["Hello folks! I'm Hitartha Gogoi, currently studying in 10th standard, started learning coding in 2021, after then I never stopped."]} /></p>
      <div>
      <div className="flex flex-row justify-evenly items-center space-x-6 my-2 text-center">
-     <Link href="https://www.instagram.com/gm.eth_/">
+     <Link href="https://www.instagram.com/_.catalyst__/">
      <span className="text-2xl text-gray-400 font-bold">
      {/*
      <CountUp end={979} />*/}<br/> 
