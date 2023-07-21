@@ -42,11 +42,11 @@ export default function Cards(){
     </span>
     </div>
     
-    <div className="flex flex-col justify-center h-60 w-60 mb-60 items-center">
+    
     <Projects title="Netflix Clone" description="A clone  Netflix homepage built using Next JS" image="/IMG-20230721-WA0000.jpg" link="https://netflix-clone-mocha-tau.vercel.app/" />
     <Projects title="Ecommerce App" description="An e-commerce application built using NextJS" image="/IMG-20230721-WA0002.jpg" link="https://ecommerce-js-junior.vercel.app/" />
    </div>
-   </div>
+  
     
     {/*
     
