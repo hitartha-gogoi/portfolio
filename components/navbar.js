@@ -7,7 +7,7 @@ import LibraryBooksIcon from "@mui/icons-material/LibraryBooks"
 import { AiOutlineInfoCircle } from "react-icons/ai"
 
 
-export default function Navbar({ open, close }){
+export default function Navbar(){
   return(
     <>
     <div className="flex flex-col justify-start items-center flex-wrap fixed top-0 left-0 bg-black h-screen w-52 z-[1500] text-gray-400 text-md text-sm font-bold py-20 space-y-2">
