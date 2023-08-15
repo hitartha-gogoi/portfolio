@@ -286,6 +286,7 @@ export default function Admin(){
   
   const sendEmail = async () => {
   try {
+    //alert(recipient)
     const response = await axios.post('/api/send-email', {
       recipient: recipient,
       subject: 'Enthusiastic Programmer with Expertise in React, Next JS, and Tailwind CSS Interested in Part-Time Opportunity',

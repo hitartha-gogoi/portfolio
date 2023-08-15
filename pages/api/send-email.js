@@ -20,6 +20,7 @@ export default async function handler(req, res) {
 
   try {
      const response = await axios.get(htmlFilePath); // Fetch HTML content from the URL
+     //const htmlContent = await readFile('./service-email.html', 'utf-8');
     const htmlContent = response.data;
     // const htmlContent = await readFile(htmlFilePath, 'utf-8');
 
