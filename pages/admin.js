@@ -286,7 +286,7 @@ export default function Admin(){
   
   const sendEmail = async () => {
   try {
-    const response = await axios.post('/api/send-email', {
+    const response = await axios.post('https://portfolio-js-junior.vercel.app/api/send-email', {
       recipient: recipient,
       subject: 'Enthusiastic Programmer with Expertise in React, Next JS, and Tailwind CSS Interested in Part-Time Opportunity',
       htmlFilePath: '/service-email.html'
