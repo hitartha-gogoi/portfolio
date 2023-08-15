@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 import { readFile } from 'fs/promises';
 import "dotenv/config"
+import axios from "axios"
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -18,7 +19,9 @@ export default async function handler(req, res) {
   });
 
   try {
-    const htmlContent = await readFile(htmlFilePath, 'utf-8');
+     const response = await axios.get(htmlFilePath); // Fetch HTML content from the URL
+    const htmlContent = response.data;
+    // const htmlContent = await readFile(htmlFilePath, 'utf-8');
 
     const mailOptions = {
       from: process.env.EMAIL_USER,

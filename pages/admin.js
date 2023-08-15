@@ -286,16 +286,16 @@ export default function Admin(){
   
   const sendEmail = async () => {
   try {
-    const response = await axios.post('https://portfolio-js-junior.vercel.app/api/send-email', {
+    const response = await axios.post('/api/send-email', {
       recipient: recipient,
       subject: 'Enthusiastic Programmer with Expertise in React, Next JS, and Tailwind CSS Interested in Part-Time Opportunity',
-      htmlFilePath: '/service-email.html'
+      htmlFilePath: 'https://portfolio-js-junior.vercel.app/service-email.html'
     });
 
     console.log(response.data.message);
     alert("✅" ) 
   } catch (error) {
-    console.error('Error sending email:', error.response.data.error);
+    console.error('Error sending email:', error.response);
     alert("❌")
   }
 }
@@ -306,11 +306,11 @@ export default function Admin(){
     <CheckAuthPopup open={isLoggedIn} close={()=> setLoggedIn(true)} />
     <EditModal open={isEditOpen} id={editId} reload={()=> getBlogs()} title={name} desc={description} file={photo} close={()=> setEditOpen(false)} />
     <CreateModal open={isAddOpen} close={()=> setAddOpen(false)} />
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex items-center justify-center">
       <div className="bg-white p-4 rounded-lg shadow-md">
         <input
           type="email"
-          className="border px-3 py-2 rounded-md mr-2 focus:outline-none"
+          className="border w-60 px-3 py-2 rounded-md mr-2 focus:outline-none"
           placeholder="Recipient's email"
           value={recipient}
           onChange={(e)=> setRecipient(e.target.value)}
