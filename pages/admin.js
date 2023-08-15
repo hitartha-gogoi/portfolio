@@ -16,6 +16,9 @@ import { db, auth, storage } from "../components/firebase"
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage"
 import { collection, doc, addDoc, serverTimestamp } from "firebase/firestore"
 import ReactTimeAgo from 'react-time-ago'
+import axios from 'axios';
+
+
 
 
 function CheckAuthPopup({ open, close }){
@@ -244,6 +247,7 @@ export default function Admin(){
   const [ description, setDescription ] = useState("")
   const [ photo, setPhoto ] = useState({})
   const [ link, setLink ] = useState("")
+  const [ recipient, setRecipient ] = useState("")
   
   const getBlogs = ()=>{
     setBlogs([])
@@ -280,12 +284,45 @@ export default function Admin(){
     .catch(err => console.log(err))
   }
   
+  const sendEmail = async () => {
+  try {
+    const response = await axios.post('/api/send-email', {
+      recipient: recipient,
+      subject: 'Enthusiastic Programmer with Expertise in React, Next JS, and Tailwind CSS Interested in Part-Time Opportunity',
+      htmlFilePath: '/service-email.html'
+    });
+
+    console.log(response.data.message);
+    alert("✅" ) 
+  } catch (error) {
+    console.error('Error sending email:', error.response.data.error);
+    alert("❌")
+  }
+}
+  
   return(
     <>
     <Nav />
     <CheckAuthPopup open={isLoggedIn} close={()=> setLoggedIn(true)} />
     <EditModal open={isEditOpen} id={editId} reload={()=> getBlogs()} title={name} desc={description} file={photo} close={()=> setEditOpen(false)} />
     <CreateModal open={isAddOpen} close={()=> setAddOpen(false)} />
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="bg-white p-4 rounded-lg shadow-md">
+        <input
+          type="email"
+          className="border px-3 py-2 rounded-md mr-2 focus:outline-none"
+          placeholder="Recipient's email"
+          value={recipient}
+          onChange={(e)=> setRecipient(e.target.value)}
+        />
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none"
+          onClick={sendEmail}
+        >
+          Send
+        </button>
+      </div>
+    </div>
     <div className="flex flex-col w-72 flex-wrap justify-evenly items-center group cursor-pointer w-screen bg-[#0f0f0f]">
     {blogs.map((blog, index)=>{
     return(
