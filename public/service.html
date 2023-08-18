@@ -9,6 +9,11 @@
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+      <!-- FontAwesome CDN -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css">
      <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
@@ -21,6 +26,22 @@
   #title {
     font-family: 'Rubik', sans-serif;
   }
+   .modal-bg {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        .modal {
+            max-width: 95%;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 </style>
 <body class="bg-gray-100">
    <!-- Navbar 
@@ -37,6 +58,46 @@
     </div>
 </nav>
 -->
+ <div class="bg-green-500 text-white py-3 px-4 rounded shadow-lg fixed bottom-5 right-5 transition-opacity duration-300 opacity-0">
+   <div class="flex items-center">
+     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+     </svg>
+     <span>Success! Your action was successful.</span>
+   </div>
+ </div>
+<!-- Modal -->
+    <div id="modal" class="hidden fixed inset-0 flex items-center justify-center z-50 modal-bg animate-fadeIn">
+        <div class="bg-white rounded-lg p-8 modal relative">
+          <button id="closeModal" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+            <h2 class="text-2xl font-semibold mb-4">Contact Information</h2>
+            <form id="contactform" onsubmit="handleSubmit(event)">
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-1" for="name">Name</label>
+                    <input type="text" id="name" name="name" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-1" for="email">Email</label>
+                    <input type="email" id="email" name="email" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-1" for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-1" for="social">Social Media Handle</label>
+                    <input type="text" id="social" name="social" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+                </div>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded w-full">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </div>
 
     <!-- Banner -->
     <div class="bg-gradient-to-r from-purple-500 to-pink-500 py-20 text-center text-white">
@@ -134,13 +195,15 @@
   <div class=" mx-auto text-center">
     <h2 class="text-3xl font-semibold mb-4">Want the right app for your idea?</h2>
     <p class="text-gray-500 mb-6 mx-8">Get your desired app delivered right at your fingertips!</p>
-    <a href="#" class="bg-white text-lg font-bold text-black py-2 px-6 rounded-full hover:bg-gray-300 hover:text-gray-900 transition duration-300">Order Now</a>
+    <button id="modalTrigger" class="bg-white text-lg font-bold text-black py-2 px-6 rounded-full hover:bg-gray-300 hover:text-gray-900 transition duration-300">Order Now</button>
   </div>
   <!-- Social Icons Row -->
-  <div class="flex justify-evenly items-center space-x-4 mt-6">
-    <a href="https://www.instagram.com" class="text-blue-500 hover:text-blue-700 w-6"><i class="material-icons">facebook_icon</i></a>
-    <a href="https://www.twitter.com" class="text-blue-500 hover:text-blue-700 w-6"><i class="material-icons">mail_icon</i></a>
-    <a href="https://www.twitter.com" class="text-blue-500 hover:text-blue-700 w-6"><i class="material-icons">chat_icon</i></a>
+  <div class="flex justify-evenly items-center mt-6 w-80">
+    <a href="https://www.instagram.com/dev.hiv3/" class="text-blue-400 hover:text-blue-300">
+       <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+     </a>
+    <a href="mailto:hitarthabusiness@gmail.com" class="text-blue-gray-50 hover:text-white w-6"><i class="material-icons">mail_icon</i></a>
+    <a href="whatsapp://send?abid=+917086233001&text=Hello" class="text-gray-100 hover:text-white w-6"><i class="material-icons">chat_icon</i></a>
   </div>
 
 </div>
@@ -177,6 +240,60 @@
       }
     
       setTimeout(typeNextChar, 2000);
+      
+         const modalTrigger = document.getElementById('modalTrigger');
+         const modal = document.getElementById('modal');
+         const successPopup = document.querySelector(".bg-green-500");
+          const inputElements = document.getElementById("contactform").querySelectorAll("input");
+
+         modalTrigger.addEventListener('click', () => {
+           modal.classList.toggle('hidden');
+         });
+        
+         modal.addEventListener('click', (event) => {
+           if (event.target === modal) {
+             modal.classList.add('hidden');
+           }
+         });
+        
+         function handleSubmit(event) {
+           event.preventDefault();
+           // Your form submission handling logic here
+              const form = document.querySelector("#contactform");
+              const formData = new FormData(form);
+              // Send email using EmailJS
+              emailjs.send("service_uje49cm", "template_cilggnm", {
+                name: formData.get("name"),
+                email: formData.get("email"),
+                phone: formData.get("phone"),
+                social: formData.get("social"),
+                timestamp: new Date().toDateString()
+              }).then(function(response) {
+                console.log("Email sent:", response);
+                showPopup()
+               
+                 inputElements.forEach(input => {
+                   input.value = "";
+                 });
+              }).catch(function(error) {
+                console.error("Email error:", error);
+              });
+            modal.classList.add('hidden');
+         }
+         
+         document.getElementById("closeModal").onclick = ()=> {
+            modal.classList.add('hidden');
+         }
+         
+         function showPopup(){
+           successPopup.style.opacity = "1";
+           setTimeout(() => {
+             successPopup.style.opacity = "0";
+           }, 3000); // Hide after 3 seconds
+         }
+         
+          emailjs.init("Y0KokueWuAneqr-Vm");
+
     </script>
 </body>
 </html>
