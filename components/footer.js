@@ -14,7 +14,7 @@ export default function Footer(){
     <img src="https://avatars.githubusercontent.com/u/72619384?v=4" className="h-36 w-36 rounded-full my-8" /> */}
     
     <div className="flex flex-row justify-center items-center flex-wrap space-x-4 my-8">
-    <Link href="https://www.instagram.com/_.catalyst__/">
+    <Link href="https://www.instagram.com/dev.hiv3/">
     <InstagramIcon className="hover:scale-125 transition-all duration-150 ease-out" /></Link>
     <TwitterIcon className="hover:scale-125 transition-all duration-150 ease-out" />
     <Link href="https://discord.gg/rZKX6au97V">
